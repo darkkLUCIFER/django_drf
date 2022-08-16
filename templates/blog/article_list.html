@@ -1,25 +1,15 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
 
-<article>
-    {% for article in articles %}
-        <h1>{{ forloop.counter }}- {{ article.title }}</h1>
-        <div>author:{{ article.author }}</div>
-        <p>{{ article.content }}</p>
-        <p>publish:{{ article.publish }}</p>
-        <hr>
-    {% empty %}
-        <p>No articles</p>
-    {% endfor %}
-</article>
-
-</body>
-</html>
+{% block content %}
+    <article>
+        {% for article in articles %}
+            <h1>{{ forloop.counter }}- {{ article.title }}</h1>
+            <div>author:{{ article.author }}</div>
+            <p>{{ article.content }}</p>
+            <p>publish:{{ article.publish }}</p>
+            <hr>
+        {% empty %}
+            <p>No articles</p>
+        {% endfor %}
+    </article>
+{% endblock %}
