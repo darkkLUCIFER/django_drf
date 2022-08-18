@@ -16,11 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
+from api.views import RevokeToken
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls', namespace='blog')),
     path('api/', include('api.urls', namespace='api')),
+    path('api/revoke/', RevokeToken.as_view(), name='revoke_token'),
 
     path('api/token-auth/', obtain_auth_token),
 ]
