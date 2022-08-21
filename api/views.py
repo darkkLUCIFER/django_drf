@@ -11,8 +11,6 @@ from .permissions import IsSuperUserOrStaffOrReadOnly, IsAuthorOrReadOnly, IsSta
 
 from rest_framework.viewsets import ModelViewSet
 
-from django_filters.rest_framework import DjangoFilterBackend
-
 
 # class ArticleList(ListCreateAPIView):
 #     queryset = Article.objects.all()
@@ -50,6 +48,7 @@ class ArticleViewSet(ModelViewSet):
     queryset = Article.objects.all()
     filterset_fields = ['status', 'author__username']
     search_fields = ['title', 'content', 'author__first_name', 'author__last_name']
+    ordering_fields = ['publish', 'status']
 
     # def get_queryset(self):
     #     status = self.request.query_params.get('status')
