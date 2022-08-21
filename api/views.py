@@ -11,6 +11,8 @@ from .permissions import IsSuperUserOrStaffOrReadOnly, IsAuthorOrReadOnly, IsSta
 
 from rest_framework.viewsets import ModelViewSet
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 # class ArticleList(ListCreateAPIView):
 #     queryset = Article.objects.all()
@@ -45,18 +47,19 @@ from rest_framework.viewsets import ModelViewSet
 
 class ArticleViewSet(ModelViewSet):
     serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
+    filterset_fields = ['status', 'author__username']
 
-    def get_queryset(self):
-        queryset = Article.objects.all()
-        status = self.request.query_params.get('status')
-        if status is not None:
-            queryset = queryset.filter(status=status)
-
-        author = self.request.query_params.get('author')
-        if author is not None:
-            queryset = queryset.filter(author__username=author)
-
-        return queryset
+    # def get_queryset(self):
+    #     status = self.request.query_params.get('status')
+    #     if status is not None:
+    #         queryset = queryset.filter(status=status)
+    #
+    #     author = self.request.query_params.get('author')
+    #     if author is not None:
+    #         queryset = queryset.filter(author__username=author)
+    #
+    #     return queryset
 
     def get_permissions(self):
         if self.action in ['list', 'create']:
