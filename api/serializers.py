@@ -9,8 +9,16 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = '__all__'
 
+    def validate_title(self, value):
+        filter_list = ['javascript', 'laravel', 'asp.net', 'php']
+        for i in filter_list:
+            if i in value:
+                raise serializers.ValidationError(f'what the hack!!??? {i} really???')
+        return value
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = '__all__'
+
